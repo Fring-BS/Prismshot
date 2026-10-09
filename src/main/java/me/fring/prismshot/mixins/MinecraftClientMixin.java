@@ -40,7 +40,7 @@ public class MinecraftClientMixin {
      * Advance the capture state machine after the game renderer finishes rendering.
      * The screenshot is captured here (reads from the framebuffer texture).
      */
-    @Inject(method = "renderFrame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render(Lnet/minecraft/client/DeltaTracker;Z)V", shift = At.Shift.AFTER))
+    @Inject(method = "renderFrame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/GameRenderer;render()V", shift = At.Shift.AFTER))
     private void postRender(CallbackInfo callbackInfo) {
         Prismshot.onRenderPreOrPost();
     }

@@ -26,6 +26,7 @@
 package me.fring.prismshot.config;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.renderpearl.api.GpuFormat;
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
@@ -67,7 +68,7 @@ public class ClothConfigBridge {
         IntegerListEntry width = entryBuilder.startIntField(Component.translatable("prismshot.config.width"), Config.CAPTURE_WIDTH)
                 .setDefaultValue(3840)
                 .setMin(1)
-                .setMax(Math.min(65535, RenderSystem.getDevice().getDeviceInfo().limits().maxTextureSizeForFormat(com.mojang.blaze3d.GpuFormat.RGBA8_UNORM)))
+                .setMax(Math.min(65535, RenderSystem.getDevice().getDeviceInfo().limits().maxTextureSizeForFormat(GpuFormat.RGBA8_UNORM)))
                 .setSaveConsumer(i -> Config.CAPTURE_WIDTH = i)
                 .build();
         category.addEntry(width);
@@ -75,7 +76,7 @@ public class ClothConfigBridge {
         IntegerListEntry height = entryBuilder.startIntField(Component.translatable("prismshot.config.height"), Config.CAPTURE_HEIGHT)
                 .setDefaultValue(2160)
                 .setMin(1)
-                .setMax(Math.min(65535, RenderSystem.getDevice().getDeviceInfo().limits().maxTextureSizeForFormat(com.mojang.blaze3d.GpuFormat.RGBA8_UNORM)))
+                .setMax(Math.min(65535, RenderSystem.getDevice().getDeviceInfo().limits().maxTextureSizeForFormat(GpuFormat.RGBA8_UNORM)))
                 .setSaveConsumer(i -> Config.CAPTURE_HEIGHT = i)
                 .build();
         category.addEntry(height);

@@ -24,6 +24,8 @@
 
 package me.fring.prismshot.gallery;
 
+import com.mojang.blaze3d.Blaze3D;
+import com.mojang.blaze3d.platform.InputConstants;
 import me.fring.prismshot.config.Config;
 import net.minecraft.util.Util;
 import net.minecraft.client.Minecraft;
@@ -36,9 +38,9 @@ import net.minecraft.client.input.MouseButtonEvent;
 import net.minecraft.client.input.CharacterEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
-import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
+import java.net.URI;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -46,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * In-game screenshot gallery with thumbnail grid, search, sort, favorites, and file actions.
@@ -533,11 +536,11 @@ public class GalleryScreen extends Screen {
     @Override
     public boolean keyPressed(KeyEvent event) {
         if (activeDialog != DialogType.NONE) {
-            if (event.key() == GLFW.GLFW_KEY_ESCAPE) {
+            if (event.key() == InputConstants.KEY_ESCAPE) {
                 activeDialog = DialogType.NONE;
                 return true;
             }
-            if (event.key() == GLFW.GLFW_KEY_ENTER) {
+            if (event.key() == InputConstants.KEY_RETURN) {
                 confirmDialog();
                 return true;
             }
@@ -545,11 +548,11 @@ public class GalleryScreen extends Screen {
         }
 
         if (renaming && renameBox != null) {
-            if (event.key() == GLFW.GLFW_KEY_ENTER) {
+            if (event.key() == InputConstants.KEY_RETURN) {
                 confirmRename();
                 return true;
             }
-            if (event.key() == GLFW.GLFW_KEY_ESCAPE) {
+            if (event.key() == InputConstants.KEY_ESCAPE) {
                 cancelRename();
                 return true;
             }
@@ -560,11 +563,11 @@ public class GalleryScreen extends Screen {
 
         if (selectedIndex >= 0 && selectedIndex < filteredScreenshots.size()) {
             switch (event.key()) {
-                case GLFW.GLFW_KEY_ENTER -> { openSelected(); return true; }
-                case GLFW.GLFW_KEY_DELETE -> { showDeleteDialog(); return true; }
-                case GLFW.GLFW_KEY_F -> { toggleFavorite(); return true; }
-                case GLFW.GLFW_KEY_R -> { startRename(); return true; }
-                case GLFW.GLFW_KEY_C -> { copyPath(); return true; }
+                case InputConstants.KEY_RETURN -> { openSelected(); return true; }
+                case InputConstants.KEY_DELETE -> { showDeleteDialog(); return true; }
+                case InputConstants.KEY_F -> { toggleFavorite(); return true; }
+                case InputConstants.KEY_R -> { startRename(); return true; }
+                case InputConstants.KEY_C -> { copyPath(); return true; }
             }
         }
         return false;
@@ -605,12 +608,11 @@ public class GalleryScreen extends Screen {
 
     private void openSelected() {
         if (selectedIndex < 0 || selectedIndex >= filteredScreenshots.size()) return;
-        ScreenshotEntry entry = filteredScreenshots.get(selectedIndex);
-        Util.getPlatform().openFile(entry.getFile().toFile());
+        Blaze3D.openPath(filteredScreenshots.get(selectedIndex).getFile());
     }
 
     private void openFolder() {
-        Util.getPlatform().openFile(screenshotsDir.toFile());
+        Blaze3D.openPath(screenshotsDir);
     }
 
     private void copyPath() {

@@ -39,7 +39,6 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.util.Util;
-import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
@@ -60,8 +59,8 @@ public class Prismshot implements ClientModInitializer {
 
     public static final KeyMapping SCREENSHOT_BINDING = new KeyMapping(
             "key.prismshot.screenshot",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_F9,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_F9,
             KeyMapping.Category.MISC);
 
     /**
@@ -70,8 +69,8 @@ public class Prismshot implements ClientModInitializer {
      */
     public static final KeyMapping CONFIG_BINDING = new KeyMapping(
             "key.prismshot.config",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_M,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_M,
             KeyMapping.Category.MISC);
 
     /**
@@ -80,8 +79,8 @@ public class Prismshot implements ClientModInitializer {
      */
     public static final KeyMapping GALLERY_BINDING = new KeyMapping(
             "key.prismshot.gallery",
-            InputConstants.Type.KEYSYM,
-            GLFW.GLFW_KEY_U,
+            InputConstants.Type.KEYBOARD,
+            InputConstants.KEY_U,
             KeyMapping.Category.MISC);
 
     private static CaptureTask task;
